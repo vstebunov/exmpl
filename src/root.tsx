@@ -11,7 +11,12 @@ type PageParams = {
     currentPage?: string;
 };
 
-export const Root = () => {
+type RootProps = {
+    manufacturers?: Manufacturer[]
+};
+
+export const Root = (props: RootProps) => {
+    const {manufacturers} = props;
     const {currentPage} = useParams<PageParams>();
     const filteredCurrentPage = currentPage ? Number.parseInt(currentPage) - 1 : 0;
     return (
@@ -21,11 +26,9 @@ export const Root = () => {
         <p> The whole application is utilizing publicly accessible data https://vpic.nhtsa.dot.gov/api/. </p>
         <p>The list of manufacturers is a paginated table with these columns: ID, common name and country. Besides that, there's an additional column with a button which leads to the detail page. </p> 
         <p>TODO: add linter and husky</p>
-        <Loader>
-            <Pager pageSize={10} currentPage={filteredCurrentPage}>
-                <ListOfManufacturers />
-            </Pager>
-        </Loader>
+        <Pager manufacturers={manufacturers} pageSize={10} currentPage={filteredCurrentPage}>
+            <ListOfManufacturers />
+        </Pager>
 
         </header>
         </div>

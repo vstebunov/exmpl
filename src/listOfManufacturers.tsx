@@ -24,7 +24,7 @@ export const ListOfManufacturers = (props: {manufacturers?: Manufacturer[]}) => 
                             <td>{manufacturer.Mfr_ID}</td>
                             <td>{manufacturer.Mfr_CommonName}</td>
                             <td>{manufacturer.Country}</td>
-                            <td><Link to={`/details/${manufacturer.Mfr_ID}`}>Details</Link></td>
+                            <td><Link to={`/detail/${manufacturer.Mfr_ID}`}>Details</Link></td>
                         </tr>
                     })
                 }

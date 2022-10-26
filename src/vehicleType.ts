@@ -1,4 +1,4 @@
 export type VehicleType = {
-    isPrimary: boolean;
+    IsPrimary: boolean;
     Name: string;
 }

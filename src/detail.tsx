@@ -5,20 +5,55 @@ import {Pager} from './pager';
 import {Loader} from './loader';
 import {
     useParams,
-    useLoaderData
+    useNavigate
 } from 'react-router-dom';
 
 type PageParams = {
     id?: string;
 };
 
-export const Detail = () => {
+type DetailProps = {
+    manufacturers?: Manufacturer[]
+};
+
+export const Detail = (props: DetailProps) => {
     const {id} = useParams<PageParams>();
+    const navigate = useNavigate();
+    const {manufacturers} = props;
+    if (!manufacturers) {
+        return <div>Not loaded</div>
+    }
     const filteredID = id ? Number.parseInt(id) : 0;
-    const cn = useLoaderData();
+    const result = manufacturers.find(manufacturer => manufacturer.Mfr_ID === filteredID);
+    if (!result) {
+        return <div>Empty</div>
+    }
     return (
         <div className="App">
-            <h1>Details:{filteredID}</h1>
+            <h1>Detail:{result.Mfr_CommonName}</h1>
+            <p>Name: {result.Mfr_CommonName}</p>
+            <p>ID: {result.Mfr_ID}</p>
+            <p>Country: {result.Country}</p>
+            {(result.VehicleTypes && result.VehicleTypes.length > 0) ?
+                <table>
+                    <thead>
+                        <tr>
+                           <th>IsPrime</th>
+                           <th>Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {result.VehicleTypes.map(vehicleType => (
+                        <tr>
+                            <th>{vehicleType.IsPrimary === true ? 'Primary' : 'Not'}</th>
+                            <th>{vehicleType.Name}</th>
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
+                : ''
+            }
+            <button onClick={() => navigate(-1)}>Back</button>
         </div>
     );
 }

@@ -4,5 +4,5 @@ export type Manufacturer = {
     Mfr_ID: number;
     Mfr_CommonName: string;
     Country: string;
-    VechicleTypes?: VehicleType[];
+    VehicleTypes?: VehicleType[];
 };
