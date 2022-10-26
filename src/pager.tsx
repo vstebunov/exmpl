@@ -1,4 +1,5 @@
 import React, { Component, ReactElement } from 'react';
+import {Link} from 'react-router-dom';
 import {Manufacturer} from './manufacturer';
 
 interface Props {
@@ -25,13 +26,13 @@ export class Pager extends Component<Props> {
         });
         const pageButtons = [];
         for (let i=1; i< pages + 1; i++) {
-            pageButtons.push(<button key={i}>{i}</button>);
+            pageButtons.push(<Link key={'link_' + i} to={`/page/${i}`}>{i}</Link>);
         }
         return <div>
                 {childrenEl}
                 {pageButtons}
                 <div>
-                    <p>current page: 0</p>
+                    <p>current page: {currentPage}</p>
                     <p>pages: {pages}</p>
                 </div>
             </div>

@@ -1,5 +1,8 @@
+import {VehicleType} from './vehicleType';
+
 export type Manufacturer = {
-    id: number;
-    commonName: string;
-    country: string;
+    Mfr_ID: number;
+    Mfr_CommonName: string;
+    Country: string;
+    VechicleTypes?: VehicleType[];
 };

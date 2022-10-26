@@ -1,14 +1,8 @@
 import type {Manufacturer} from './manufacturer';
-import logo from './logo.svg';
+import {Link} from 'react-router-dom';
 
-export const ListOfManufacturers = (props: {loading?: boolean, manufacturers?: Manufacturer[]}) => {
-        const {loading, manufacturers} = props;
-        if (loading) {
-            return <div>
-                <img src={logo} className="App-logo" alt="logo" />
-                <p>Loading...</p>
-            </div>
-        }
+export const ListOfManufacturers = (props: {manufacturers?: Manufacturer[]}) => {
+        const {manufacturers} = props;
         if (!manufacturers || manufacturers.length === 0) {
             return <div>Empty</div>
         }
@@ -26,11 +20,11 @@ export const ListOfManufacturers = (props: {loading?: boolean, manufacturers?: M
                 <tbody>
                 {
                     manufacturers.map(manufacturer => {
-                        return <tr key={manufacturer.id}>
-                            <td>{manufacturer.id}</td>
-                            <td>{manufacturer.commonName}</td>
-                            <td>{manufacturer.country}</td>
-                            <td><button>Details</button></td>
+                        return <tr key={manufacturer.Mfr_ID}>
+                            <td>{manufacturer.Mfr_ID}</td>
+                            <td>{manufacturer.Mfr_CommonName}</td>
+                            <td>{manufacturer.Country}</td>
+                            <td><Link to={`/details/${manufacturer.Mfr_ID}`}>Details</Link></td>
                         </tr>
                     })
                 }

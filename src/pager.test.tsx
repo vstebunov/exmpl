@@ -2,23 +2,24 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import {Pager} from './pager';
 import {ListOfManufacturers} from './listOfManufacturers';
+import {BrowserRouter as Router} from 'react-router-dom';
 
 const bigListOfMf = [{
-        id: 0,
-        commonName: 'Reno',
-        country: 'France',
+        Mfr_ID: 0,
+        Mfr_CommonName: 'Reno',
+        Country: 'France',
     },{
-        id: 1,
-        commonName: 'Reno1',
-        country: 'France',
+        Mfr_ID: 1,
+        Mfr_CommonName: 'Reno1',
+        Country: 'France',
     },{
-        id: 2,
-        commonName: 'Reno2',
-        country: 'France',
+        Mfr_ID: 2,
+        Mfr_CommonName: 'Reno2',
+        Country: 'France',
     }];
 
 test('Pager contains pagination', () => {
-    render(<Pager manufacturers={bigListOfMf} pageSize={2}><div>test</div></Pager>);
+    render(<Router><Pager manufacturers={bigListOfMf} pageSize={2}><div>test</div></Pager></Router>);
     const pageCounter = screen.getByText('pages: 2');
     const currentPage = screen.getByText('current page: 0');
     expect(currentPage).toBeInTheDocument();
@@ -26,7 +27,7 @@ test('Pager contains pagination', () => {
 });
 
 test('Pager contains button for pages', () => {
-    render(<Pager manufacturers={bigListOfMf} pageSize={2}><div>test</div></Pager>);
+    render(<Router><Pager manufacturers={bigListOfMf} pageSize={2}><div>test</div></Pager></Router>);
     const pageCounter = screen.getByText('1');
     const currentPage = screen.getByText('2');
     expect(currentPage).toBeInTheDocument();
@@ -34,7 +35,7 @@ test('Pager contains button for pages', () => {
 });
 
 test('Pager sliced by pages', () => {
-    render(<Pager manufacturers={bigListOfMf} pageSize={2}><ListOfManufacturers /></Pager>);
+    render(<Router><Pager manufacturers={bigListOfMf} pageSize={2}><ListOfManufacturers /></Pager></Router>);
     const firstEl = screen.getByText('Reno');
     const secondEl = screen.getByText('Reno1');
     expect(firstEl).toBeInTheDocument();
@@ -43,7 +44,7 @@ test('Pager sliced by pages', () => {
 });
 
 test('Pager change pages', () => {
-    render(<Pager manufacturers={bigListOfMf} pageSize={2} currentPage={1}><ListOfManufacturers /></Pager>);
+    render(<Router><Pager manufacturers={bigListOfMf} pageSize={2} currentPage={1}><ListOfManufacturers /></Pager></Router>);
     const firstEl = screen.getByText('Reno2');
     expect(firstEl).toBeInTheDocument();
     expect(() => screen.getByText('Reno')).toThrow();
