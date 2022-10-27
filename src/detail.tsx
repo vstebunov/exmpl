@@ -35,18 +35,18 @@ export const Detail = (props: DetailProps) => {
             <p>ID: {result.Mfr_ID}</p>
             <p>Country: {result.Country}</p>
             {(result.VehicleTypes && result.VehicleTypes.length > 0) ?
-                <table className='table table-sm table-striped'>
+                <table className='table table-sm table-striped table-bordered'>
                     <thead>
                         <tr>
-                           <th>IsPrime</th>
-                           <th>Name</th>
+                           <th className='text-start' scope='col'>IsPrime</th>
+                           <th className='text-start' scope='col'>Name</th>
                         </tr>
                     </thead>
                     <tbody>
                     {result.VehicleTypes.map(vehicleType => (
                         <tr>
-                            <th>{vehicleType.IsPrimary === true ? 'Primary' : 'Not'}</th>
-                            <th>{vehicleType.Name}</th>
+                            <th className='text-start' >{vehicleType.IsPrimary === true ? 'Primary' : 'Not'}</th>
+                            <th className='text-start' >{vehicleType.Name}</th>
                         </tr>
                     ))}
                     </tbody>

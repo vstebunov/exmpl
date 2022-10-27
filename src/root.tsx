@@ -1,35 +1,63 @@
-import React, {Component, useState} from 'react';
+import React, {Component} from 'react';
 import {ListOfManufacturers} from './listOfManufacturers';
-import {Manufacturer} from './manufacturer';
-import {Pager} from './pager';
+import {PagerWithStore} from './pagerWithStore';
 import {Loader} from './loader';
 import {
     useParams
 } from 'react-router-dom';
+import {dataStore} from './store';
+import axios from 'axios';
+import {refreshManufacturers} from './actionCreators';
 
-type PageParams = {
-    currentPage?: string;
-};
+export class Root extends Component<{currentPage: string}, {isLoading: boolean}> {
+    constructor (props: any) {
+        super(props);
+        this.state = {
+            isLoading: true
+        };
+    }
 
-type RootProps = {
-    manufacturers?: Manufacturer[]
-};
+    componentDidMount = () => {
+        const {currentPage} = this.props; 
+        const filteredCurrentPage = currentPage ? Number.parseInt(currentPage) : 0;
+        this.downloadManufacturers(filteredCurrentPage);
+    }
 
-export const Root = (props: RootProps) => {
-    const {manufacturers} = props;
-    const {currentPage} = useParams<PageParams>();
-    const filteredCurrentPage = currentPage ? Number.parseInt(currentPage) - 1 : 0;
-    return (
+    downloadManufacturers = (page: number) => {
+        const self = this;
+        axios.get('/getallmanufacturers', {
+            baseURL: 'https://vpic.nhtsa.dot.gov/api/vehicles',
+            params: {
+                format: 'json',
+                page
+            }
+        }).then( response => {
+            dataStore.dispatch(refreshManufacturers(...response.data.Results));
+            this.setState({isLoading: false});
+        }, error => {
+            this.setState({isLoading: false});
+        });
+    }
+
+    render = () => {
+        const {currentPage} = this.props;
+        const filteredCurrentPage = currentPage ? Number.parseInt(currentPage) : 0;
+
+        return (
         <div className="App">
-        <header className="App-header">
-        <p>TODO: check update state</p>
-        <p>TODO: review it</p>
-        <p>TODO: loading next page last page</p>
-        <Pager manufacturers={manufacturers} pageSize={10} currentPage={filteredCurrentPage}>
-            <ListOfManufacturers />
-        </Pager>
-
-        </header>
+            <p>TODO: review it</p>
+            <Loader isLoading={this.state.isLoading}>
+                <PagerWithStore currentPage={filteredCurrentPage}>
+                    <ListOfManufacturers />
+                </PagerWithStore>
+            </Loader>
         </div>
-    );
+        );
+    }
 }
+
+function withParams(Component: any): any {
+  return (props: any) => <Component {...props} currentPage={useParams().currentPage} />;
+}
+
+export default withParams(Root);

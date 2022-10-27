@@ -10,7 +10,7 @@ export const ListOfManufacturers = (props: {manufacturers?: Manufacturer[]}) => 
             <h1>List Of Manufacturers</h1>
             <table className='table table-sm table-striped'>
                 <thead>                
-                    <tr>
+                    <tr className='text-start' >
                         <th>ID</th>
                         <th>Common name</th>
                         <th>Country</th>
@@ -20,7 +20,7 @@ export const ListOfManufacturers = (props: {manufacturers?: Manufacturer[]}) => 
                 <tbody>
                 {
                     manufacturers.map(manufacturer => {
-                        return <tr key={manufacturer.Mfr_ID}>
+                        return <tr key={manufacturer.Mfr_ID} className='text-start' >
                             <td>{manufacturer.Mfr_ID}</td>
                             <td>{manufacturer.Mfr_CommonName}</td>
                             <td>{manufacturer.Country}</td>

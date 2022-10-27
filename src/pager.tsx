@@ -4,41 +4,33 @@ import {Manufacturer} from './manufacturer';
 
 interface Props {
     manufacturers: Manufacturer[];
-    pageSize: number;
     currentPage: number;
     children: any;
 }
 
 export class Pager extends Component<Props> {
-
     static defaultProps = {
         manufacturers: [],
-        pageSize: 100,
         currentPage: 0
     };
 
     render() {
-        const {manufacturers, pageSize, children, currentPage} = this.props;
-        const pageOfManufacturers = manufacturers.slice(currentPage * pageSize, (currentPage + 1) * pageSize);
-        const pages = Math.round(manufacturers.length / pageSize);
+        const {manufacturers, children, currentPage} = this.props;
         const childrenEl = React.Children.map(children, (child) => {
-            return React.cloneElement(child, {manufacturers: pageOfManufacturers})
+            return React.cloneElement(child, {manufacturers})
         });
-        const pageButtons = [];
-        for (let i=1; i< pages + 1; i++) {
-            pageButtons.push(<li className="page-item" key={'link_' + i} ><Link className='page-link'to={`/page/${i}`}>{i}</Link></li>);
-        }
+        const isPrevoiusDisabled = currentPage === 0 ? 'disabled' : '';
         return <div>
-                {childrenEl}
-                <nav>
-                    <ul className="pagination pagination-sm">
-                        {pageButtons}
-                    </ul>
-                </nav>
-                <div>
-                    <p>current page: {currentPage + 1}</p>
-                    <p>pages: {pages}</p>
-                </div>
+            {childrenEl}
+            <nav>
+            <ul className="pagination justify-content-center">
+                <li className={['page-item', isPrevoiusDisabled].join(' ')}><Link className='page-link'to={`/page/${currentPage -1}`}>Prevoius</Link></li>
+                <li className="page-item"><Link className='page-link'to={`/page/${currentPage + 1}`}>Next</Link></li>
+            </ul>
+            </nav>
+            <div>
+            <p>current page: {currentPage}</p>
+            </div>
             </div>
     }
 }

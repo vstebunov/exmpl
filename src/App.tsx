@@ -1,47 +1,36 @@
-import React, {useState} from 'react';
-import logo from './logo.svg';
+import React, {Component} from 'react';
 import './App.css';
-import {Root} from './root';
-import {Detail} from './detail';
-import {Loader} from './loader';
-import axios from 'axios';
+import Root from './root';
+import {DetailWithStore as Detail} from './detailWithStore';
+import {Provider} from 'react-redux';
+import {dataStore} from './store';
 import {
     createBrowserRouter,
     RouterProvider
 } from 'react-router-dom';
-import {Manufacturer} from './manufacturer';
 import 'bootstrap/dist/css/bootstrap.css'
 
-function App() {
+const router = createBrowserRouter([
+    {
+        path: '/',
+        element: <Root />
+    },
+    {
+        path: 'page/:currentPage',
+        element: <Root />,
+    },
+    {
+        path: 'detail/:id',
+        element: <Detail />
+    }
+]);
 
-    const [manufacturers, setManufacturers] = useState<Manufacturer[]>([]);
-
-    const router = createBrowserRouter([
-        {
-            path: '/',
-            element: <Root manufacturers={manufacturers} />
-        },
-        {
-            path: 'page/:currentPage',
-            element: <Root manufacturers={manufacturers} />,
-        },
-        {
-            path: 'detail/:id',
-            element: <Detail manufacturers={manufacturers} />
-        }
-    ]);
-
-    axios.get('/getallmanufacturers?format=json', {
-        baseURL: 'https://vpic.nhtsa.dot.gov/api/vehicles'
-    }).then( response => {
-        console.log(setManufacturers, manufacturers, response);
-        manufacturers.push(...response.data.Results)
-        setManufacturers(manufacturers);
-    });
-
-    return <React.StrictMode>
-            <RouterProvider router={router} />
-        </React.StrictMode>
+export default class App extends Component<{}> {
+    render = () => {
+        return <React.StrictMode>
+                <Provider store={dataStore}>
+                    <RouterProvider router={router} />
+                </Provider>
+            </React.StrictMode>
+    }
 }
-
-export default App;

@@ -19,23 +19,15 @@ const bigListOfMf = [{
     }];
 
 test('Pager contains pagination', () => {
-    render(<Router><Pager manufacturers={bigListOfMf} pageSize={2}><div>test</div></Pager></Router>);
+    render(<Router><Pager manufacturers={bigListOfMf}><div>test</div></Pager></Router>);
     const pageCounter = screen.getByText('pages: 2');
     const currentPage = screen.getByText('current page: 0');
     expect(currentPage).toBeInTheDocument();
     expect(pageCounter).toBeInTheDocument();
 });
 
-test('Pager contains button for pages', () => {
-    render(<Router><Pager manufacturers={bigListOfMf} pageSize={2}><div>test</div></Pager></Router>);
-    const pageCounter = screen.getByText('1');
-    const currentPage = screen.getByText('2');
-    expect(currentPage).toBeInTheDocument();
-    expect(pageCounter).toBeInTheDocument();
-});
-
 test('Pager sliced by pages', () => {
-    render(<Router><Pager manufacturers={bigListOfMf} pageSize={2}><ListOfManufacturers /></Pager></Router>);
+    render(<Router><Pager manufacturers={bigListOfMf}><ListOfManufacturers /></Pager></Router>);
     const firstEl = screen.getByText('Reno');
     const secondEl = screen.getByText('Reno1');
     expect(firstEl).toBeInTheDocument();
@@ -44,7 +36,7 @@ test('Pager sliced by pages', () => {
 });
 
 test('Pager change pages', () => {
-    render(<Router><Pager manufacturers={bigListOfMf} pageSize={2} currentPage={1}><ListOfManufacturers /></Pager></Router>);
+    render(<Router><Pager manufacturers={bigListOfMf} currentPage={1}><ListOfManufacturers /></Pager></Router>);
     const firstEl = screen.getByText('Reno2');
     expect(firstEl).toBeInTheDocument();
     expect(() => screen.getByText('Reno')).toThrow();
