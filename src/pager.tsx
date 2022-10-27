@@ -19,7 +19,7 @@ export class Pager extends Component<Props> {
         const childrenEl = React.Children.map(children, (child) => {
             return React.cloneElement(child, {manufacturers})
         });
-        const isPrevoiusDisabled = currentPage === 0 ? 'disabled' : '';
+        const isPrevoiusDisabled = currentPage === 1 ? 'disabled' : '';
         return <div>
             {childrenEl}
             <nav>

@@ -13,7 +13,7 @@ export class Root extends Component<{currentPage: string}, {isLoading: boolean}>
     constructor (props: any) {
         super(props);
         this.state = {
-            isLoading: true
+            isLoading: false
         };
     }
 
@@ -23,8 +23,17 @@ export class Root extends Component<{currentPage: string}, {isLoading: boolean}>
         this.downloadManufacturers(filteredCurrentPage);
     }
 
+    componentDidUpdate = (prevProps: any) => {
+        const {currentPage} = this.props; 
+        const filteredCurrentPage = currentPage ? Number.parseInt(currentPage) : 0;
+        console.log(this.props, this.state);
+        if (this.state.isLoading === false && prevProps.currentPage !== this.props.currentPage) {
+            this.downloadManufacturers(filteredCurrentPage);
+        }
+    }
+
     downloadManufacturers = (page: number) => {
-        const self = this;
+        this.setState({isLoading: true});
         axios.get('/getallmanufacturers', {
             baseURL: 'https://vpic.nhtsa.dot.gov/api/vehicles',
             params: {
