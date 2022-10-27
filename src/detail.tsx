@@ -35,7 +35,7 @@ export const Detail = (props: DetailProps) => {
             <p>ID: {result.Mfr_ID}</p>
             <p>Country: {result.Country}</p>
             {(result.VehicleTypes && result.VehicleTypes.length > 0) ?
-                <table>
+                <table className='table table-sm table-striped'>
                     <thead>
                         <tr>
                            <th>IsPrime</th>

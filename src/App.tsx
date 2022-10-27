@@ -10,6 +10,7 @@ import {
     RouterProvider
 } from 'react-router-dom';
 import {Manufacturer} from './manufacturer';
+import 'bootstrap/dist/css/bootstrap.css'
 
 function App() {
 
@@ -33,6 +34,7 @@ function App() {
     axios.get('/getallmanufacturers?format=json', {
         baseURL: 'https://vpic.nhtsa.dot.gov/api/vehicles'
     }).then( response => {
+        console.log(setManufacturers, manufacturers, response);
         manufacturers.push(...response.data.Results)
         setManufacturers(manufacturers);
     });

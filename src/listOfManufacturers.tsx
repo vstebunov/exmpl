@@ -8,7 +8,7 @@ export const ListOfManufacturers = (props: {manufacturers?: Manufacturer[]}) => 
         }
         return <div style={{width:'100%'}}>
             <h1>List Of Manufacturers</h1>
-            <table>
+            <table className='table table-sm table-striped'>
                 <thead>                
                     <tr>
                         <th>ID</th>

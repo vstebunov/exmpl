@@ -26,13 +26,17 @@ export class Pager extends Component<Props> {
         });
         const pageButtons = [];
         for (let i=1; i< pages + 1; i++) {
-            pageButtons.push(<Link key={'link_' + i} to={`/page/${i}`}>{i}</Link>);
+            pageButtons.push(<li className="page-item" key={'link_' + i} ><Link className='page-link'to={`/page/${i}`}>{i}</Link></li>);
         }
         return <div>
                 {childrenEl}
-                {pageButtons}
+                <nav>
+                    <ul className="pagination pagination-sm">
+                        {pageButtons}
+                    </ul>
+                </nav>
                 <div>
-                    <p>current page: {currentPage}</p>
+                    <p>current page: {currentPage + 1}</p>
                     <p>pages: {pages}</p>
                 </div>
             </div>
