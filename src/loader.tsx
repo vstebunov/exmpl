@@ -1,6 +1,5 @@
-import React, { Component, ReactElement } from 'react';
+import React from 'react';
 import logo from './logo.svg';
-import axios from 'axios';
 
 interface Props {
     isLoading: boolean;

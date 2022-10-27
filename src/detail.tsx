@@ -1,8 +1,4 @@
-import React, {Component, useState} from 'react';
-import {ListOfManufacturers} from './listOfManufacturers';
 import {Manufacturer} from './manufacturer';
-import {Pager} from './pager';
-import {Loader} from './loader';
 import {
     useParams,
     useNavigate
