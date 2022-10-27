@@ -23,14 +23,14 @@ export class Pager extends Component<Props> {
         return <div>
             <nav>
                 <ul className="pagination justify-content-center">
-                    <li className={['page-item', isPrevoiusDisabled].join(' ')}><Link className='page-link'to={`/page/${currentPage -1}`}>Prevoius</Link></li>
+                    <li className={['page-item', isPrevoiusDisabled].join(' ')}><Link className='page-link' to={`/page/${currentPage -1}`}>Previous</Link></li>
                     <li className="page-item"><Link className='page-link'to={`/page/${currentPage + 1}`}>Next</Link></li>
                 </ul>
             </nav>
             {childrenEl}
             <nav>
                 <ul className="pagination justify-content-center">
-                    <li className={['page-item', isPrevoiusDisabled].join(' ')}><Link className='page-link'to={`/page/${currentPage -1}`}>Prevoius</Link></li>
+                    <li className={['page-item', isPrevoiusDisabled].join(' ')}><Link className='page-link'to={`/page/${currentPage -1}`}>Previous</Link></li>
                     <li className="page-item"><Link className='page-link'to={`/page/${currentPage + 1}`}>Next</Link></li>
                 </ul>
             </nav>
