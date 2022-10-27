@@ -1,14 +1,14 @@
 import React, {Component} from 'react';
-import './App.css';
-import Root from './root';
-import {DetailWithStore as Detail} from './detailWithStore';
+import Root from './common/root';
+import {DetailWithStore as Detail} from './store/detailWithStore';
 import {Provider} from 'react-redux';
-import {dataStore} from './store';
+import {dataStore} from './store/store';
 import {
     createBrowserRouter,
     RouterProvider
 } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css'
+import './App.css'
 
 const router = createBrowserRouter([
     {
