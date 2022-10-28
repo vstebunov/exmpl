@@ -1,12 +1,12 @@
-import { Manufacturer } from '../manufacturers/manufacturer';
 import { Action } from 'redux';
+import { Manufacturer } from '../manufacturers/manufacturer';
 
 export interface StoreData {
   manufacturers: Manufacturer[]
 }
 
 export enum ACTIONS {
-  REFRESH_MANUFACTURERS
+  REFRESH_MANUFACTURERS,
 }
 
 export interface RefreshManufacturersAction extends Action<ACTIONS.REFRESH_MANUFACTURERS> {

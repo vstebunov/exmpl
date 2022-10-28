@@ -1,42 +1,41 @@
-import React, { Component } from 'react';
-import {Link} from 'react-router-dom';
-import {Manufacturer} from '../manufacturers/manufacturer';
+import React, { ReactNode } from 'react';
+import { Link } from 'react-router-dom';
 
-interface Props {
-    manufacturers: Manufacturer[];
-    currentPage: number;
-    children: any;
+type Props = {
+  currentPage: number;
+  children?: ReactNode
+};
+
+function Pager(props:Props) {
+  const { children, currentPage } = props;
+  const isPrevoiusDisabled = currentPage === 1 ? 'disabled' : '';
+  return (
+    <div>
+      <nav>
+        <ul className="pagination justify-content-center">
+          <li className={['page-item', isPrevoiusDisabled].join(' ')}><Link className="page-link" to={`/page/${currentPage - 1}`}>Previous</Link></li>
+          <li className="page-item"><Link className="page-link" to={`/page/${currentPage + 1}`}>Next</Link></li>
+        </ul>
+      </nav>
+      {children}
+      <nav>
+        <ul className="pagination justify-content-center">
+          <li className={['page-item', isPrevoiusDisabled].join(' ')}><Link className="page-link" to={`/page/${currentPage - 1}`}>Previous</Link></li>
+          <li className="page-item"><Link className="page-link" to={`/page/${currentPage + 1}`}>Next</Link></li>
+        </ul>
+      </nav>
+      <div>
+        <p>
+          current page:
+          {currentPage}
+        </p>
+      </div>
+    </div>
+  );
 }
 
-export class Pager extends Component<Props> {
-    static defaultProps = {
-        manufacturers: [],
-        currentPage: 0
-    };
+Pager.defaultProps = {
+  children: undefined,
+};
 
-    render() {
-        const {manufacturers, children, currentPage} = this.props;
-        const childrenEl = React.Children.map(children, (child) => {
-            return React.cloneElement(child, {manufacturers})
-        });
-        const isPrevoiusDisabled = currentPage === 1 ? 'disabled' : '';
-        return <div>
-            <nav>
-                <ul className="pagination justify-content-center">
-                    <li className={['page-item', isPrevoiusDisabled].join(' ')}><Link className='page-link' to={`/page/${currentPage -1}`}>Previous</Link></li>
-                    <li className="page-item"><Link className='page-link'to={`/page/${currentPage + 1}`}>Next</Link></li>
-                </ul>
-            </nav>
-            {childrenEl}
-            <nav>
-                <ul className="pagination justify-content-center">
-                    <li className={['page-item', isPrevoiusDisabled].join(' ')}><Link className='page-link'to={`/page/${currentPage -1}`}>Previous</Link></li>
-                    <li className="page-item"><Link className='page-link'to={`/page/${currentPage + 1}`}>Next</Link></li>
-                </ul>
-            </nav>
-            <div>
-                <p>current page: {currentPage}</p>
-            </div>
-        </div>
-    }
-}
+export default Pager;

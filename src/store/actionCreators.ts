@@ -1,7 +1,9 @@
-import { ACTIONS, RefreshManufacturersAction} from './types';
-import {Manufacturer} from '../manufacturers/manufacturer';
+import { ACTIONS, RefreshManufacturersAction } from './types';
+import { Manufacturer } from '../manufacturers/manufacturer';
 
-export const refreshManufacturers = (...manufacturers: Manufacturer[]): RefreshManufacturersAction => ({
-    type: ACTIONS.REFRESH_MANUFACTURERS,
-    payload: manufacturers
+const refreshManufacturers = (...manufacturers: Manufacturer[]): RefreshManufacturersAction => ({
+  type: ACTIONS.REFRESH_MANUFACTURERS,
+  payload: manufacturers,
 });
+
+export default refreshManufacturers;

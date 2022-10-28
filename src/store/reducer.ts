@@ -1,17 +1,20 @@
-import { ACTIONS, StoreData, StoreAction } from './types';
 import { Reducer } from 'redux';
+import { ACTIONS, StoreData, StoreAction } from './types';
 
-export const StoreReducer: Reducer<StoreData, StoreAction>
-    = (data: StoreData | undefined, action) => {
-        data = data || { manufacturers: [] }
-        switch(action.type) {
-            case ACTIONS.REFRESH_MANUFACTURERS:
-                return {
-                    ...data,
-                    manufacturers: [...action.payload]
-                };
+type SR = Reducer<StoreData, StoreAction>;
 
-            default:
-                return data;
-        }
-    }
+const StoreReducer: SR = (storedata: StoreData | undefined, action) => {
+  const data = storedata || { manufacturers: [] };
+  switch (action.type) {
+    case ACTIONS.REFRESH_MANUFACTURERS:
+      return {
+        ...data,
+        manufacturers: [...action.payload],
+      };
+
+    default:
+      return data;
+  }
+};
+
+export default StoreReducer;

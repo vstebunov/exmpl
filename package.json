@@ -16,6 +16,7 @@
     "axios": "^1.1.3",
     "bootstrap": "^5.2.2",
     "eslint": "^8.26.0",
+    "eslint-config-airbnb": "^19.0.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.4",
@@ -40,8 +41,17 @@
   "eslintConfig": {
     "extends": [
       "react-app",
-      "react-app/jest"
+      "react-app/jest",
+      "airbnb",
+      "airbnb/hooks",
+      "airbnb-typescript"
     ],
+    "parserOptions": {
+      "project": [
+        "./tsconfig.json"
+      ]
+    },
+
     "overrides": [
       {
         "files": [
@@ -51,7 +61,21 @@
           "import/no-anonymous-default-export": "off"
         }
       }
-    ]
+
+    ],
+
+    "rules": {
+      "import/no-extraneous-dependencies": [
+          "error",
+          {
+            "devDependencies": [
+              "**/*.stories.*",
+              "**/.storybook/**/*.*"
+            ],
+            "peerDependencies": true
+          }
+        ]
+}
   },
   "browserslist": {
     "production": [
